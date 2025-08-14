@@ -114,6 +114,35 @@ export const DetalleViaje = () => {
     }
   };
 
+  const handleIniciarViaje = async () => {
+    if (user) {
+      try {
+        const token = await user.firebaseUser.getIdToken();
+        const response = await fetch(
+          `http://localhost:3000/api/viajes/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ estado: "iniciado" }),
+          }
+        );
+        if (response.ok) {
+          const updatedViaje = await response.json();
+          setViaje(updatedViaje);
+          alert("Viaje iniciado con éxito");
+        } else {
+          const errorData = await response.json();
+          alert(`Error: ${errorData.error}`);
+        }
+      } catch (error) {
+        console.error("Error al iniciar el viaje:", error);
+      }
+    }
+  };
+
   const handleUpdateReservaStatus = async (id_reserva, estado) => {
     if (user) {
       try {
@@ -199,7 +228,7 @@ export const DetalleViaje = () => {
 
       {esCreador ? (
         <div>
-          <button>Iniciar Viaje</button>
+          <button onClick={handleIniciarViaje}>Iniciar Viaje</button>
           <h3>Reservas:</h3>
           {reservas.length > 0 ? (
             <ul>
