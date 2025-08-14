@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export const Home = () => {
@@ -17,7 +18,7 @@ export const Home = () => {
           });
           const data = await response.json();
 
-          const formattedData = data.map((viaje) => ({ // Convertimos el formato de hora
+          const formattedData = data.map((viaje) => ({
             ...viaje,
             hora_salida: new Date(viaje.hora_salida).toLocaleString("es-EC", {
               dateStyle: "medium",
@@ -47,7 +48,9 @@ export const Home = () => {
               <ul>
                 {viajes.map((viaje) => (
                   <li key={viaje.id_viaje}>
-                    {viaje.origen} - {viaje.destino} - {viaje.hora_salida}
+                    <Link to={`/viaje/${viaje.id_viaje}`}>
+                      {viaje.origen} - {viaje.destino} - {viaje.hora_salida}
+                    </Link>
                   </li>
                 ))}
               </ul>

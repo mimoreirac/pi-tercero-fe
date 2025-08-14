@@ -5,6 +5,7 @@ import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
 import { Navbar } from "./components/Navbar";
 import { AddViaje } from "./pages/AddViaje";
+import { DetalleViaje } from "./pages/DetalleViaje";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Signup />} />
         <Route path="/crearviaje" element={<AddViaje />} />
+        <Route path="/viaje/:id" element={<DetalleViaje />} />
       </Routes>
     </AuthProvider>
   );
