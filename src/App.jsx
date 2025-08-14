@@ -13,8 +13,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/add-viaje" element={<AddViaje />} />
+        <Route path="/registro" element={<Signup />} />
+        <Route path="/crearviaje" element={<AddViaje />} />
       </Routes>
     </AuthProvider>
   );

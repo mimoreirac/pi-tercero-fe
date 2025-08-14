@@ -5,19 +5,75 @@ import { useNavigate } from "react-router-dom";
 export const AddViaje = () => {
   const [origen, setOrigen] = useState("");
   const [destino, setDestino] = useState("");
-  const [horaSalida, setHoraSalida] = useState("");
+
+  const getInitialTime = () => {
+    // Para obtener la hora inicial
+    const now = new Date();
+    now.setMinutes(now.getMinutes() + 5);
+    return now.toTimeString().slice(0, 5); // Formato en HH:MM
+  };
+
+  const [horaSeleccionada, setHoraSeleccionada] = useState(getInitialTime());
+  const [fechaSeleccionada, setFechaSeleccionada] = useState(
+    new Date().toISOString().split("T")[0]
+  );
   const [asientosDisponibles, setAsientosDisponibles] = useState(1);
   const [descripcion, setDescripcion] = useState("");
   const [etiquetasArea, setEtiquetasArea] = useState("");
+  const [error, setError] = useState("");
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  const validateDateTime = (date, time) => {
+    // Para validar que solo se pueda introducir viajes a futuro (al menos 5 min)
+    if (!date || !time) return "Por favor selecciona la hora y la fecha";
+
+    const selectedDateTime = new Date(`${date}T${time}`);
+    const now = new Date();
+    const cincoMinutosDespues = new Date(now.getTime() + 5 * 60 * 1000);
+
+    if (selectedDateTime < cincoMinutosDespues) {
+      return "La hora de salida debe ser al menos 5 minutos en el futuro.";
+    }
+    return "";
+  };
+
+  // Manejo del cambio de hora con validacion
+  const handleTimeChange = (e) => {
+    const newTime = e.target.value;
+    setHoraSeleccionada(newTime);
+
+    const validationError = validateDateTime(fechaSeleccionada, newTime);
+    setError(validationError);
+  };
+
+  // Manejo del cambio de fecha con validacion
+  const handleDateChange = (e) => {
+    const newDate = e.target.value;
+    setFechaSeleccionada(newDate);
+
+    const validationError = validateDateTime(newDate, horaSeleccionada);
+    setError(validationError);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const validationError = validateDateTime(
+      fechaSeleccionada,
+      horaSeleccionada
+    );
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
     if (!user) {
       // Para regresar al menú si el usuario no ha iniciado sesión
       return;
     }
+
+    const horaSalidaCombinada = `${fechaSeleccionada}T${horaSeleccionada}`;
 
     try {
       const token = await user.getIdToken();
@@ -30,7 +86,7 @@ export const AddViaje = () => {
         body: JSON.stringify({
           origen,
           destino,
-          hora_salida: horaSalida,
+          hora_salida: horaSalidaCombinada,
           asientos_disponibles: parseInt(asientosDisponibles, 10),
           descripcion,
           etiquetas_area: etiquetasArea
@@ -51,9 +107,22 @@ export const AddViaje = () => {
     }
   };
 
+  // Obtener la hora y fecha minimas
+  const getMinDate = () => new Date().toISOString().split("T")[0];
+
+  const getMinTime = () => {
+    const today = new Date().toISOString().split("T")[0];
+    if (fechaSeleccionada === today) {
+      const now = new Date();
+      now.setMinutes(now.getMinutes() + 5);
+      return now.toTimeString().slice(0, 5);
+    }
+    return "00:00";
+  };
+
   return (
     <div>
-      <h2>Agregar Viaje</h2>
+      <h2>Crear Viaje</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -69,12 +138,27 @@ export const AddViaje = () => {
           onChange={(e) => setDestino(e.target.value)}
           required
         />
+        <label htmlFor="time-input">Hora de Salida:</label>
         <input
-          type="datetime-local"
-          value={horaSalida}
-          onChange={(e) => setHoraSalida(e.target.value)}
+          type="time"
+          name="time-input"
+          id="time-input"
+          value={horaSeleccionada}
+          onChange={handleTimeChange}
+          min={getMinTime()}
           required
         />
+        <label htmlFor="date-input">Fecha:</label>
+        <input
+          type="date"
+          name="date-input"
+          id="date-input"
+          value={fechaSeleccionada}
+          onChange={handleDateChange}
+          min={getMinDate()}
+          required
+        />
+        {error && <p style={{ color: "red", fontSize: "14px" }}>{error}</p>}
         <input
           type="number"
           placeholder="Asientos Disponibles"
@@ -94,7 +178,7 @@ export const AddViaje = () => {
           onChange={(e) => setEtiquetasArea(e.target.value)}
           placeholder="Ingresa etiquetas separadas por comas, ej: valle, cumbaya, puce"
         />
-        <button type="submit">Agregar Viaje</button>
+        <button type="submit">Crear Viaje</button>
       </form>
     </div>
   );

@@ -14,7 +14,7 @@ export const Navbar = () => {
         {user ? (
           <>
             <li>
-              <Link to="/add-viaje">Crear Viaje</Link>
+              <Link to="/crearviaje">Crear Viaje</Link>
             </li>
             <li>
               <button onClick={logout}>Cerrar Sesión</button>
@@ -26,7 +26,7 @@ export const Navbar = () => {
               <Link to="/login">Iniciar Sesión</Link>
             </li>
             <li>
-              <Link to="/signup">Crear Cuenta</Link>
+              <Link to="/registro">Crear Cuenta</Link>
             </li>
           </>
         )}
