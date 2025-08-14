@@ -16,7 +16,16 @@ export const Home = () => {
             },
           });
           const data = await response.json();
-          setViajes(data);
+
+          const formattedData = data.map((viaje) => ({ // Convertimos el formato de hora
+            ...viaje,
+            hora_salida: new Date(viaje.hora_salida).toLocaleString("es-EC", {
+              dateStyle: "medium",
+              timeStyle: "short",
+            }),
+          }));
+
+          setViajes(formattedData);
         } catch (error) {
           console.error("Error fetching trips:", error);
         }
@@ -38,7 +47,7 @@ export const Home = () => {
               <ul>
                 {viajes.map((viaje) => (
                   <li key={viaje.id_viaje}>
-                    {viaje.origen} - {viaje.destino}
+                    {viaje.origen} - {viaje.destino} - {viaje.hora_salida}
                   </li>
                 ))}
               </ul>

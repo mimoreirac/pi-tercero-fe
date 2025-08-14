@@ -12,9 +12,14 @@ export const Navbar = () => {
           <Link to="/">Inicio</Link>
         </li>
         {user ? (
-          <li>
-            <button onClick={logout}>Cerrar Sesión</button>
-          </li>
+          <>
+            <li>
+              <Link to="/add-viaje">Crear Viaje</Link>
+            </li>
+            <li>
+              <button onClick={logout}>Cerrar Sesión</button>
+            </li>
+          </>
         ) : (
           <>
             <li>
