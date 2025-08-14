@@ -26,6 +26,22 @@ export const AuthProvider = ({ children }) => {
   const signup = async (email, password, displayName) => {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     await updateProfile(res.user, { displayName });
+
+    // Sincroniza al usuario con la base de datos
+    try {
+      const token = await res.user.getIdToken();
+      await fetch("http://localhost:3000/api/usuarios/sync", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        // Para hacer: Ingresar el numero de telefono durante creacion de usuarios
+        body: JSON.stringify({ numero_telefono: "0912345678" }),
+      });
+    } catch (error) {
+      console.error("Error al sincronizar con la base de datos", error);
+    }
   };
 
   const login = (email, password) =>
