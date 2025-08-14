@@ -10,7 +10,7 @@ export const Home = () => {
     const fetchViajes = async () => {
       if (user) {
         try {
-          const token = await user.getIdToken();
+          const token = await user.firebaseUser.getIdToken();
           const response = await fetch("http://localhost:3000/api/viajes", {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -40,7 +40,7 @@ export const Home = () => {
       <h2>Home</h2>
       {user ? (
         <div>
-          <p>Bienvenido, {user.displayName || user.email}</p>
+          <p>Bienvenido, {user.firebaseUser.displayName || user.firebaseUser.email}</p>
           <button onClick={logout}>Cerrar sesión</button>
           <div>
             <h3>Viajes Activos:</h3>

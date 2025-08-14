@@ -76,7 +76,7 @@ export const AddViaje = () => {
     const horaSalidaCombinada = `${fechaSeleccionada}T${horaSeleccionada}`;
 
     try {
-      const token = await user.getIdToken();
+      const token = await user.firebaseUser.getIdToken();
       const response = await fetch("http://localhost:3000/api/viajes", {
         method: "POST",
         headers: {

@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
@@ -22,8 +21,10 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isSigningUp, setIsSigningUp] = useState(false);
 
-  const signup = async (email, password, displayName) => {
+  const signup = async (email, password, displayName, numeroTelefono) => {
+    setIsSigningUp(true);
     const res = await createUserWithEmailAndPassword(auth, email, password);
     await updateProfile(res.user, { displayName });
 
@@ -36,11 +37,22 @@ export const AuthProvider = ({ children }) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        // Para hacer: Ingresar el numero de telefono durante creacion de usuarios
-        body: JSON.stringify({ numero_telefono: "0912345678" }),
+        body: JSON.stringify({
+          numero_telefono: numeroTelefono,
+          nombre: displayName,
+        }),
       });
+      const response = await fetch("http://localhost:3000/api/usuarios/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const dbUser = await response.json();
+      setUser({ firebaseUser: res.user, dbUser });
+      setIsSigningUp(false);
     } catch (error) {
       console.error("Error al sincronizar con la base de datos", error);
+      setIsSigningUp(false);
     }
   };
 
@@ -50,13 +62,25 @@ export const AuthProvider = ({ children }) => {
   const logout = () => signOut(auth);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (isSigningUp) return;
+      if (currentUser) {
+        const token = await currentUser.getIdToken();
+        const response = await fetch("http://localhost:3000/api/usuarios/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const dbUser = await response.json();
+        setUser({ firebaseUser: currentUser, dbUser });
+      } else {
+        setUser(null);
+      }
       setLoading(false);
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [isSigningUp]);
 
   return (
     <AuthContext.Provider value={{ signup, login, logout, user, loading }}>
