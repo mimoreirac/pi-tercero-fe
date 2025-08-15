@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export const DetalleViaje = () => {
@@ -8,6 +8,7 @@ export const DetalleViaje = () => {
   const [currentUserReservation, setCurrentUserReservation] = useState(null);
   const { id } = useParams();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchViaje = async () => {
@@ -173,30 +174,31 @@ export const DetalleViaje = () => {
   };
 
   const handleCancelarViaje = async () => {
-    if (user) {
-      try {
-        const token = await user.firebaseUser.getIdToken();
-        const response = await fetch(
-          `http://localhost:3000/api/viajes/${id}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ estado: "cancelado" }),
+    if (window.confirm("¿Estás seguro de que quieres cancelar este viaje?")) {
+      if (user) {
+        try {
+          const token = await user.firebaseUser.getIdToken();
+          const response = await fetch(
+            `http://localhost:3000/api/viajes/${id}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({ estado: "cancelado" }),
+            }
+          );
+          if (response.ok) {
+            alert("Viaje cancelado con éxito");
+            navigate("/");
+          } else {
+            const errorData = await response.json();
+            alert(`Error: ${errorData.error}`);
           }
-        );
-        if (response.ok) {
-          const updatedViaje = await response.json();
-          setViaje(updatedViaje);
-          alert("Viaje cancelado con éxito");
-        } else {
-          const errorData = await response.json();
-          alert(`Error: ${errorData.error}`);
+        } catch (error) {
+          console.error("Error al cancelar el viaje:", error);
         }
-      } catch (error) {
-        console.error("Error al cancelar el viaje:", error);
       }
     }
   };
@@ -304,7 +306,8 @@ export const DetalleViaje = () => {
               {reservas.map((reserva) => (
                 <li key={reserva.id_reserva}>
                   {reserva.pasajero.nombre} - Estado: {reserva.estado}
-                  {reserva.estado === "pendiente" && (
+                  {viaje.estado === "activo" &&
+                    reserva.estado === "pendiente" && (
                     <>
                       <button
                         onClick={() =>
