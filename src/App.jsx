@@ -8,6 +8,7 @@ import { AddViaje } from "./pages/AddViaje";
 import { DetalleViaje } from "./pages/DetalleViaje";
 import { ReportarIncidente } from "./pages/ReportarIncidente";
 import { MiPerfil } from "./pages/MiPerfil";
+import { EditarViaje } from "./pages/EditarViaje";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 function App() {
@@ -47,6 +48,14 @@ function App() {
           element={
             <ProtectedRoute>
               <MiPerfil />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/viaje/:id/editar"
+          element={
+            <ProtectedRoute>
+              <EditarViaje />
             </ProtectedRoute>
           }
         />

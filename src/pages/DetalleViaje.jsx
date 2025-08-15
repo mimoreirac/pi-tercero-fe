@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 export const DetalleViaje = () => {
   const [viaje, setViaje] = useState(null);
   const [reservas, setReservas] = useState([]);
+  const [reservasLoading, setReservasLoading] = useState(true);
   const [currentUserReservation, setCurrentUserReservation] = useState(null);
   const { id } = useParams();
   const { user } = useAuth();
@@ -39,6 +40,7 @@ export const DetalleViaje = () => {
   useEffect(() => {
     const fetchReservas = async () => {
       if (user && viaje) {
+        setReservasLoading(true);
         try {
           const token = await user.firebaseUser.getIdToken();
           const response = await fetch(
@@ -55,19 +57,24 @@ export const DetalleViaje = () => {
           if (response.ok) {
             const reservasData = await response.json();
             if (esCreador) {
+              const reservasArray = Array.isArray(reservasData)
+                ? reservasData
+                : [reservasData];
               const reservasConPasajero = await Promise.all(
-                reservasData.map(async (reserva) => {
-                  const userResponse = await fetch(
-                    `http://localhost:3000/api/usuarios/${reserva.id_pasajero}`,
-                    {
-                      headers: {
-                        Authorization: `Bearer ${token}`,
-                      },
-                    }
-                  );
-                  const pasajeroData = await userResponse.json();
-                  return { ...reserva, pasajero: pasajeroData };
-                })
+                reservasArray
+                  .filter((reserva) => reserva.id_pasajero)
+                  .map(async (reserva) => {
+                    const userResponse = await fetch(
+                      `http://localhost:3000/api/usuarios/${reserva.id_pasajero}`,
+                      {
+                        headers: {
+                          Authorization: `Bearer ${token}`,
+                        },
+                      }
+                    );
+                    const pasajeroData = await userResponse.json();
+                    return { ...reserva, pasajero: pasajeroData };
+                  })
               );
               setReservas(reservasConPasajero);
             } else {
@@ -83,6 +90,8 @@ export const DetalleViaje = () => {
           }
         } catch (error) {
           console.error("Error al obtener las reservas del viaje:", error);
+        } finally {
+          setReservasLoading(false);
         }
       }
     };
@@ -251,19 +260,24 @@ export const DetalleViaje = () => {
             }
           );
           const reservasData = await fetchReservasResponse.json();
+          const reservasArray = Array.isArray(reservasData)
+            ? reservasData
+            : [reservasData];
           const reservasConPasajero = await Promise.all(
-            reservasData.map(async (reserva) => {
-              const userResponse = await fetch(
-                `http://localhost:3000/api/usuarios/${reserva.id_pasajero}`,
-                {
-                  headers: {
-                    Authorization: `Bearer ${token}`,
-                  },
-                }
-              );
-              const pasajeroData = await userResponse.json();
-              return { ...reserva, pasajero: pasajeroData };
-            })
+            reservasArray
+              .filter((reserva) => reserva.id_pasajero)
+              .map(async (reserva) => {
+                const userResponse = await fetch(
+                  `http://localhost:3000/api/usuarios/${reserva.id_pasajero}`,
+                  {
+                    headers: {
+                      Authorization: `Bearer ${token}`,
+                    },
+                  }
+                );
+                const pasajeroData = await userResponse.json();
+                return { ...reserva, pasajero: pasajeroData };
+              })
           );
           setReservas(reservasConPasajero);
         } else {
@@ -315,7 +329,12 @@ export const DetalleViaje = () => {
       {esCreador ? (
         <div>
           {viaje.estado === "activo" && (
-            <button onClick={handleIniciarViaje}>Iniciar Viaje</button>
+            <>
+              <button onClick={handleIniciarViaje}>Iniciar Viaje</button>
+              <Link to={`/viaje/${id}/editar`}>
+                <button>Editar Viaje</button>
+              </Link>
+            </>
           )}
           {viaje.estado === "iniciado" && (
             <button onClick={handleCompletarViaje}>Completar Viaje</button>
@@ -357,8 +376,10 @@ export const DetalleViaje = () => {
                 </li>
               ))}
             </ul>
-          ) : (
+          ) : reservasLoading ? (
             <p>Cargando...</p>
+          ) : (
+            <p>No hay reservas aún.</p>
           )}
         </div>
       ) : currentUserReservation ? (
