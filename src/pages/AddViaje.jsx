@@ -97,7 +97,8 @@ export const AddViaje = () => {
       });
 
       if (response.ok) {
-        navigate("/"); // Redirige a la página principal si todo está correcto
+        const newViaje = await response.json();
+        navigate(`/viaje/${newViaje.id_viaje}`);
       } else {
         // Manejo de errores
         console.error("Error al crear viaje.");
