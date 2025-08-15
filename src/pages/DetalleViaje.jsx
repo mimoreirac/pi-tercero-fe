@@ -143,6 +143,64 @@ export const DetalleViaje = () => {
     }
   };
 
+  const handleCompletarViaje = async () => {
+    if (user) {
+      try {
+        const token = await user.firebaseUser.getIdToken();
+        const response = await fetch(
+          `http://localhost:3000/api/viajes/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ estado: "completado" }),
+          }
+        );
+        if (response.ok) {
+          const updatedViaje = await response.json();
+          setViaje(updatedViaje);
+          alert("Viaje completado con éxito");
+        } else {
+          const errorData = await response.json();
+          alert(`Error: ${errorData.error}`);
+        }
+      } catch (error) {
+        console.error("Error al completar el viaje:", error);
+      }
+    }
+  };
+
+  const handleCancelarViaje = async () => {
+    if (user) {
+      try {
+        const token = await user.firebaseUser.getIdToken();
+        const response = await fetch(
+          `http://localhost:3000/api/viajes/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ estado: "cancelado" }),
+          }
+        );
+        if (response.ok) {
+          const updatedViaje = await response.json();
+          setViaje(updatedViaje);
+          alert("Viaje cancelado con éxito");
+        } else {
+          const errorData = await response.json();
+          alert(`Error: ${errorData.error}`);
+        }
+      } catch (error) {
+        console.error("Error al cancelar el viaje:", error);
+      }
+    }
+  };
+
   const handleUpdateReservaStatus = async (id_reserva, estado) => {
     if (user) {
       try {
@@ -225,10 +283,21 @@ export const DetalleViaje = () => {
       <p>
         <strong>Etiquetas:</strong> {viaje.etiquetas_area.join(", ")}
       </p>
+      <p>
+        <strong>Estado:</strong> {viaje.estado}
+      </p>
 
       {esCreador ? (
         <div>
-          <button onClick={handleIniciarViaje}>Iniciar Viaje</button>
+          {viaje.estado === "activo" && (
+            <button onClick={handleIniciarViaje}>Iniciar Viaje</button>
+          )}
+          {viaje.estado === "iniciado" && (
+            <button onClick={handleCompletarViaje}>Completar Viaje</button>
+          )}
+          {(viaje.estado === "activo" || viaje.estado === "iniciado") && (
+            <button onClick={handleCancelarViaje}>Cancelar Viaje</button>
+          )}
           <h3>Reservas:</h3>
           {reservas.length > 0 ? (
             <ul>
