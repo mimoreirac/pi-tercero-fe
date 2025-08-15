@@ -1,9 +1,15 @@
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export const Navbar = () => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/");
+  };
 
   return (
     <nav>
@@ -20,7 +26,7 @@ export const Navbar = () => {
               <Link to="/perfil">Mi Perfil</Link>
             </li>
             <li>
-              <button onClick={logout}>Cerrar Sesión</button>
+              <button onClick={handleLogout}>Cerrar Sesión</button>
             </li>
           </>
         ) : (

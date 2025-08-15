@@ -8,6 +8,7 @@ import { AddViaje } from "./pages/AddViaje";
 import { DetalleViaje } from "./pages/DetalleViaje";
 import { ReportarIncidente } from "./pages/ReportarIncidente";
 import { MiPerfil } from "./pages/MiPerfil";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -17,10 +18,38 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Signup />} />
-        <Route path="/crearviaje" element={<AddViaje />} />
-        <Route path="/viaje/:id" element={<DetalleViaje />} />
-        <Route path="/viaje/:id/reportar" element={<ReportarIncidente />} />
-        <Route path="/perfil" element={<MiPerfil />} />
+        <Route
+          path="/crearviaje"
+          element={
+            <ProtectedRoute>
+              <AddViaje />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/viaje/:id"
+          element={
+            <ProtectedRoute>
+              <DetalleViaje />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/viaje/:id/reportar"
+          element={
+            <ProtectedRoute>
+              <ReportarIncidente />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/perfil"
+          element={
+            <ProtectedRoute>
+              <MiPerfil />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </AuthProvider>
   );
