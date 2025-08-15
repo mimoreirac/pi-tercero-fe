@@ -197,6 +197,34 @@ export const DetalleViaje = () => {
     }
   };
 
+  const handleCancelarReserva = async (id_reserva) => {
+    if (window.confirm("¿Estás seguro de que quieres cancelar tu reserva?")) {
+      if (user) {
+        try {
+          const token = await user.firebaseUser.getIdToken();
+          const response = await fetch(
+            `http://localhost:3000/api/reservas/${id_reserva}/cancelar`,
+            {
+              method: "PUT",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          if (response.ok) {
+            alert("Reserva cancelada con éxito");
+            setCurrentUserReservation(null);
+          } else {
+            const errorData = await response.json();
+            alert(`Error: ${errorData.error}`);
+          }
+        } catch (error) {
+          console.error("Error al cancelar la reserva:", error);
+        }
+      }
+    }
+  };
+
   const handleUpdateReservaStatus = async (id_reserva, estado) => {
     if (user) {
       try {
@@ -337,6 +365,16 @@ export const DetalleViaje = () => {
         <div>
           <h3>Tu Reserva</h3>
           <p>Estado: {currentUserReservation.estado}</p>
+          {(currentUserReservation.estado === "pendiente" ||
+            currentUserReservation.estado === "confirmada") && (
+            <button
+              onClick={() =>
+                handleCancelarReserva(currentUserReservation.id_reserva)
+              }
+            >
+              Cancelar Reserva
+            </button>
+          )}
         </div>
       ) : (
         <button onClick={handleAplicar}>Aplicar a Viaje</button>
