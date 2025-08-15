@@ -119,17 +119,14 @@ export const DetalleViaje = () => {
     if (user) {
       try {
         const token = await user.firebaseUser.getIdToken();
-        const response = await fetch(
-          `http://localhost:3000/api/viajes/${id}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ estado: "iniciado" }),
-          }
-        );
+        const response = await fetch(`http://localhost:3000/api/viajes/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ estado: "iniciado" }),
+        });
         if (response.ok) {
           const updatedViaje = await response.json();
           setViaje(updatedViaje);
@@ -148,17 +145,14 @@ export const DetalleViaje = () => {
     if (user) {
       try {
         const token = await user.firebaseUser.getIdToken();
-        const response = await fetch(
-          `http://localhost:3000/api/viajes/${id}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ estado: "completado" }),
-          }
-        );
+        const response = await fetch(`http://localhost:3000/api/viajes/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ estado: "completado" }),
+        });
         if (response.ok) {
           const updatedViaje = await response.json();
           setViaje(updatedViaje);
@@ -258,7 +252,8 @@ export const DetalleViaje = () => {
     return <p>Cargando...</p>;
   }
 
-  const esCreador = user && viaje && user.dbUser.id_usuario === viaje.id_conductor;
+  const esCreador =
+    user && viaje && user.dbUser.id_usuario === viaje.id_conductor;
 
   return (
     <div>
@@ -308,29 +303,29 @@ export const DetalleViaje = () => {
                   {reserva.pasajero.nombre} - Estado: {reserva.estado}
                   {viaje.estado === "activo" &&
                     reserva.estado === "pendiente" && (
-                    <>
-                      <button
-                        onClick={() =>
-                          handleUpdateReservaStatus(
-                            reserva.id_reserva,
-                            "confirmada"
-                          )
-                        }
-                      >
-                        Confirmar
-                      </button>
-                      <button
-                        onClick={() =>
-                          handleUpdateReservaStatus(
-                            reserva.id_reserva,
-                            "rechazada"
-                          )
-                        }
-                      >
-                        Rechazar
-                      </button>
-                    </>
-                  )}
+                      <>
+                        <button
+                          onClick={() =>
+                            handleUpdateReservaStatus(
+                              reserva.id_reserva,
+                              "confirmada"
+                            )
+                          }
+                        >
+                          Confirmar
+                        </button>
+                        <button
+                          onClick={() =>
+                            handleUpdateReservaStatus(
+                              reserva.id_reserva,
+                              "rechazada"
+                            )
+                          }
+                        >
+                          Rechazar
+                        </button>
+                      </>
+                    )}
                 </li>
               ))}
             </ul>
@@ -350,6 +345,14 @@ export const DetalleViaje = () => {
       <Link to="/">
         <button>Regresar al dashboard</button>
       </Link>
+
+      {(viaje.estado === "iniciado" ||
+        viaje.estado === "cancelado" ||
+        viaje.estado === "completado") && (
+        <Link to={`/viaje/${id}/reportar`}>
+          <button>Reportar Incidente</button>
+        </Link>
+      )}
     </div>
   );
 };
