@@ -7,6 +7,7 @@ import { Navbar } from "./components/Navbar";
 import { AddViaje } from "./pages/AddViaje";
 import { DetalleViaje } from "./pages/DetalleViaje";
 import { ReportarIncidente } from "./pages/ReportarIncidente";
+import { MiPerfil } from "./pages/MiPerfil";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/crearviaje" element={<AddViaje />} />
         <Route path="/viaje/:id" element={<DetalleViaje />} />
         <Route path="/viaje/:id/reportar" element={<ReportarIncidente />} />
+        <Route path="/perfil" element={<MiPerfil />} />
       </Routes>
     </AuthProvider>
   );

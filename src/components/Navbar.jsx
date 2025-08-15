@@ -17,6 +17,9 @@ export const Navbar = () => {
               <Link to="/crearviaje">Crear Viaje</Link>
             </li>
             <li>
+              <Link to="/perfil">Mi Perfil</Link>
+            </li>
+            <li>
               <button onClick={logout}>Cerrar Sesión</button>
             </li>
           </>
