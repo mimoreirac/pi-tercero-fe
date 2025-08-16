@@ -1,0 +1,27 @@
+.navbar {
+  height: 100%;
+  background-color: oklch(95.57% 0.003 286.35);
+  padding: 1rem;
+  min-width: 300px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar-link {
+  border-radius: 20px;
+  padding: 0.5rem 4rem 0.5rem 1rem;
+  text-align: left;
+  text-decoration: none;
+  color: oklch(69.17% 0.004 247.88);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.navbar-link:hover {
+  background-color: oklch(25.11% 0.006 258.36);
+  color: oklch(91.87% 0.003 264.54);
+}
