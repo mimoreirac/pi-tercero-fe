@@ -10,6 +10,7 @@ import { ReportarIncidente } from "./pages/ReportarIncidente";
 import { MiPerfil } from "./pages/MiPerfil";
 import { EditarViaje } from "./pages/EditarViaje";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import "./App.css";
 
 function App() {
   return (

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import "./Home.css";
 
 export const Home = () => {
   const { user, logout } = useAuth();
@@ -39,21 +40,23 @@ export const Home = () => {
     <div>
       <h2>Home</h2>
       {user ? (
-        <div>
-          <p>Bienvenido, {user.firebaseUser.displayName || user.firebaseUser.email}</p>
-          <button onClick={logout}>Cerrar sesión</button>
-          <div>
+        <div className="main-container">
+          <p>
+            Bienvenido,{" "}
+            {user.firebaseUser.displayName || user.firebaseUser.email}
+          </p>
+          <div classsName="viajes-container">
             <h3>Viajes Activos:</h3>
             {viajes.length > 0 ? (
-              <ul>
+              <div className="viajes-card-container">
                 {viajes.map((viaje) => (
-                  <li key={viaje.id_viaje}>
+                  <div key={viaje.id_viaje} classsName="viajes-card">
                     <Link to={`/viaje/${viaje.id_viaje}`}>
                       {viaje.origen} - {viaje.destino} - {viaje.hora_salida}
                     </Link>
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </div>
             ) : (
               <p>No hay viajes activos.</p>
             )}
