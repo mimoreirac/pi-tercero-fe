@@ -1,14 +1,16 @@
 .main-container {
-  max-width: 900px;
-  margin: 2rem auto;
+  width: 35%;
   padding: 2rem;
-  background: #fff;
   border-radius: 20px;
+  background: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  font-family: "Quicksand", sans-serif;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+  font-family: "Quicksand", sans-serif;
   align-items: center;
+  justify-content: center;
+  margin: 2rem auto;
 }
 
 .home-header {
@@ -63,7 +65,7 @@
 
 .viajes-card a {
   color: oklch(52.79% 0.005 271.32);
-  font-weight: 500;
+  font-weight: 400;
   font-size: 1.1rem;
   text-decoration: none;
   font-family: "Bricolage Grotesque", sans-serif;
