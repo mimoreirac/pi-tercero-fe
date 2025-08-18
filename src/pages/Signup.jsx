@@ -1,7 +1,8 @@
-
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import "./Signup.css";
+import { GiBearFace } from "react-icons/gi";
 
 export const Signup = () => {
   const [email, setEmail] = useState("");
@@ -27,15 +28,9 @@ export const Signup = () => {
   };
 
   return (
-    <div>
+    <div className="signup-container">
       <h2>Crear cuenta</h2>
-      <form onSubmit={handleSignup}>
-        <input
-          type="text"
-          placeholder="Nombre"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+      <form onSubmit={handleSignup} className="signup-form">
         <input
           type="email"
           placeholder="Email"
@@ -43,10 +38,10 @@ export const Signup = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          type="text"
+          placeholder="Nombre"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <input
           type="text"
@@ -54,8 +49,18 @@ export const Signup = () => {
           value={numeroTelefono}
           onChange={(e) => setNumeroTelefono(e.target.value)}
         />
-        <button type="submit">Signup</button>
+        <input
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit" className="signup-button">
+          <GiBearFace />
+          Crear cuenta
+        </button>
       </form>
+      <Link to={"/login"}>¿Ya tienes cuenta? Inicia sesión</Link>
     </div>
   );
 };
