@@ -1,0 +1,55 @@
+.contenedor-reservas {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 80%;
+  gap: 0.35rem;
+  text-align: left;
+  margin: 1rem;
+}
+
+.header-reservas {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 2em;
+}
+
+.lista-usuarios {
+  font-family: "Bricolage Grotesque", sans-serif;
+  list-style-type: none;
+}
+
+.usuario {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-family: "Quicksand", sans-serif;
+  font-size: 1.25em;
+}
+
+.aceptar-reserva {
+  border-radius: 50%;
+  padding: 0.15rem;
+}
+
+.rechazar-reserva {
+  border-radius: 50%;
+  padding: 0.15rem;
+}
+
+.aceptar-reserva:hover {
+  cursor: pointer;
+  background-color: oklch(25.11% 0.006 258.36);
+  color: oklch(91.87% 0.003 264.54);
+}
+
+.rechazar-reserva:hover {
+  cursor: pointer;
+  background-color: oklch(25.11% 0.006 258.36);
+  color: oklch(91.87% 0.003 264.54);
+}
+
+.loading-text,
+.reservas-vacias {
+  font-family: "Quicksand", sans-serif;
+  font-size: 1.25rem;
+}
