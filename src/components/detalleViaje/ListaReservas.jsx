@@ -41,7 +41,7 @@ export const ListaReservas = ({
           ))}
         </ul>
       ) : (
-        <p>No hay reservas aún.</p>
+        <p className="reservas-vacias">No hay reservas aún.</p>
       )}
     </div>
   );

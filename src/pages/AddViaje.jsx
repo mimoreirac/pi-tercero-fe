@@ -174,8 +174,12 @@ export const AddViaje = () => {
             {error}
           </p>
         )}
+        <label htmlFor="asientos-input" className="input-text">
+          Número de Asientos:
+        </label>
         <input
           type="number"
+          name="asientos-input"
           placeholder="Asientos Disponibles"
           value={asientosDisponibles}
           onChange={(e) => setAsientosDisponibles(e.target.value)}

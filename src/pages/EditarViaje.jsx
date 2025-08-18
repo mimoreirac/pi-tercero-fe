@@ -129,8 +129,12 @@ export const EditarViaje = () => {
           required
         />
         {error && <p style={{ color: "red", fontSize: "14px" }}>{error}</p>}
+        <label htmlFor="asientos-input" className="input-text">
+          Número de Asientos:
+        </label>
         <input
           type="number"
+          name="asientos-input"
           placeholder="Asientos Disponibles"
           value={asientosDisponibles}
           onChange={(e) => setAsientosDisponibles(e.target.value)}
@@ -153,7 +157,7 @@ export const EditarViaje = () => {
           Guardar Cambios
         </button>
       </form>
-      <Link to={`/viaje/${id}`} className="boton-regresar">
+      <Link to={`/viaje/${id}`} className="boton-regreso">
         <MdArrowBack />
         Cancelar y regresar
       </Link>

@@ -48,7 +48,8 @@
   color: oklch(91.87% 0.003 264.54);
 }
 
-.loading-text {
+.loading-text,
+.reservas-vacias {
   font-family: "Quicksand", sans-serif;
   font-size: 1.25rem;
 }
