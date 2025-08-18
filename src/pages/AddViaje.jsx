@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { MdArrowBack } from "react-icons/md";
 import "./AddViaje.css";
+import { FaCarSide } from "react-icons/fa6";
 
 export const AddViaje = () => {
   const [origen, setOrigen] = useState("");
@@ -123,9 +125,9 @@ export const AddViaje = () => {
   };
 
   return (
-    <div>
-      <h2>Crear Viaje</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="detalles-viaje-container add-viaje-container">
+      <h2 className="add-viaje-header">Crear Viaje</h2>
+      <form onSubmit={handleSubmit} className="formulario-viaje">
         <input
           type="text"
           placeholder="Origen"
@@ -140,7 +142,9 @@ export const AddViaje = () => {
           onChange={(e) => setDestino(e.target.value)}
           required
         />
-        <label htmlFor="time-input">Hora de Salida:</label>
+        <label htmlFor="time-input" className="input-text">
+          Hora de Salida:
+        </label>
         <input
           type="time"
           name="time-input"
@@ -150,7 +154,9 @@ export const AddViaje = () => {
           min={getMinTime()}
           required
         />
-        <label htmlFor="date-input">Fecha:</label>
+        <label htmlFor="date-input" className="input-text">
+          Fecha:
+        </label>
         <input
           type="date"
           name="date-input"
@@ -160,7 +166,14 @@ export const AddViaje = () => {
           min={getMinDate()}
           required
         />
-        {error && <p style={{ color: "red", fontSize: "14px" }}>{error}</p>}
+        {error && (
+          <p
+            style={{ color: "red", fontSize: "14px" }}
+            className="mensaje-error"
+          >
+            {error}
+          </p>
+        )}
         <input
           type="number"
           placeholder="Asientos Disponibles"
@@ -173,6 +186,7 @@ export const AddViaje = () => {
           placeholder="Descripción (opcional)"
           value={descripcion}
           onChange={(e) => setDescripcion(e.target.value)}
+          className="texto-descripcion"
         />
         <input
           type="text"
@@ -180,8 +194,15 @@ export const AddViaje = () => {
           onChange={(e) => setEtiquetasArea(e.target.value)}
           placeholder="Ingresa etiquetas separadas por comas, ej: valle, cumbaya, puce"
         />
-        <button type="submit">Crear Viaje</button>
+        <button type="submit" className="boton-agregar-viaje">
+          <FaCarSide />
+          Crear Viaje
+        </button>
       </form>
+      <Link to="/" className="boton-regreso">
+        <MdArrowBack />
+        Regresar al dashboard
+      </Link>
     </div>
   );
 };
