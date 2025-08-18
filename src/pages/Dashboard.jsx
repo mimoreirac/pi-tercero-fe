@@ -37,7 +37,7 @@ export const Dashboard = () => {
   }, [user]);
 
   return (
-    <div>
+    <div className="dashboard-container">
       <h2 className="home-header">Dashboard</h2>
       {user ? (
         <div className="main-container">

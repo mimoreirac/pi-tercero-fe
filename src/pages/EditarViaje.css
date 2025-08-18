@@ -1,34 +1,35 @@
 .editar-viaje-container {
-  width: 35%;
-  max-width: 900px;
-  min-width: 320px;
-  margin: 2rem auto;
-  padding: 2rem;
+  background-color: oklch(95.57% 0.003 286.35);
+  margin: auto 2rem;
+  flex-grow: 1;
   border-radius: 20px;
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  height: 95%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  font-family: "Quicksand", sans-serif;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .editar-viaje-header {
   text-align: center;
   color: #2c3e50;
   font-family: "Bricolage Grotesque", sans-serif;
-  font-size: 2.5em;
-  margin-bottom: 1.5rem;
+  font-size: 4em;
 }
 
-form {
-  width: 100%;
+.formulario-editar {
+  width: 35%;
+  padding: 2rem;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+  font-family: "Quicksand", sans-serif;
   align-items: center;
-  gap: 1.5rem; /* Más espacio entre elementos */
 }
 
 .input-text,
@@ -39,13 +40,12 @@ form {
   border: 1px solid #ddd;
   font-size: 1rem;
   padding: 0.75rem;
-  box-sizing: border-box;
-  display: block;
 }
 
 .texto-descripcion {
   min-height: 100px;
   resize: vertical;
+  font-family: "Quicksand", sans-serif;
 }
 
 input:focus,
@@ -81,4 +81,30 @@ textarea:focus {
   font-size: 0.9rem;
   margin-top: -0.5rem;
   text-align: center;
+}
+
+.editar-viaje-container.edito-viaje {
+  justify-content: space-evenly;
+}
+
+.boton-guardar-cambios {
+  border-radius: 20px;
+  padding: 0.5rem 4rem 0.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  color: oklch(52.79% 0.005 271.32);
+  display: flex;
+  align-content: center;
+  gap: 0.35rem;
+  width: 70%;
+  font-family: "Bricolage Grotesque", sans-serif;
+  box-sizing: 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.boton-guardar-cambios:hover {
+  background-color: oklch(25.11% 0.006 258.36);
+  color: oklch(91.87% 0.003 264.54);
+  cursor: pointer;
 }
