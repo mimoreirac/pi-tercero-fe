@@ -1,0 +1,68 @@
+.detalles-viaje-container {
+  background-color: oklch(95.57% 0.003 286.35);
+  margin: auto 2rem;
+  flex-grow: 1;
+  border-radius: 20px;
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.boton-regreso {
+  margin: 1rem;
+  align-self: flex-end;
+  justify-self: end;
+  border-radius: 20px;
+  padding: 0.5rem 4rem 0.5rem 1rem;
+  text-align: left;
+  text-decoration: none;
+  color: oklch(52.79% 0.005 271.32);
+  display: flex;
+  align-content: center;
+  gap: 0.35rem;
+  width: 70%;
+  font-family: "Bricolage Grotesque", sans-serif;
+  box-sizing: 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: none;
+  max-width: 25%;
+}
+
+.boton-regreso:hover {
+  background-color: oklch(25.11% 0.006 258.36);
+  color: oklch(91.87% 0.003 264.54);
+  cursor: pointer;
+}
+
+.acciones {
+  width: 95%;
+}
+
+.boton {
+  border-radius: 20px;
+  padding: 0.5rem 4rem 0.5rem 1rem;
+  text-align: left;
+  text-decoration: none;
+  color: oklch(52.79% 0.005 271.32);
+  display: flex;
+  align-content: center;
+  gap: 0.35rem;
+  width: 70%;
+  font-family: "Bricolage Grotesque", sans-serif;
+  box-sizing: 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: none;
+  max-width: 25%;
+}
+
+.boton:hover {
+  background-color: oklch(25.11% 0.006 258.36);
+  color: oklch(91.87% 0.003 264.54);
+  cursor: pointer;
+}

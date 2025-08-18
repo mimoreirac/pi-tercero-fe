@@ -5,7 +5,7 @@ export const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return <p>Cargando...</p>;
+    return <div className="detalles-viaje-container"></div>;
   }
 
   if (!user) {
