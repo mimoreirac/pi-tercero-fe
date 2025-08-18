@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { MdArrowBack } from "react-icons/md";
+import "./EditarViaje.css";
+import { FaSave } from "react-icons/fa";
 
 export const EditarViaje = () => {
   const [origen, setOrigen] = useState("");
@@ -86,9 +89,9 @@ export const EditarViaje = () => {
   };
 
   return (
-    <div className="editar-viaje-container">
-      <h2>Editar Viaje</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="editar-viaje-container edito-viaje">
+      <h2 className="editar-viaje-header">Editar Viaje</h2>
+      <form onSubmit={handleSubmit} className="formulario-editar">
         <input
           type="text"
           placeholder="Origen"
@@ -103,7 +106,9 @@ export const EditarViaje = () => {
           onChange={(e) => setDestino(e.target.value)}
           required
         />
-        <label htmlFor="time-input">Hora de Salida:</label>
+        <label htmlFor="time-input" className="input-text">
+          Hora de Salida:
+        </label>
         <input
           type="time"
           name="time-input"
@@ -112,7 +117,9 @@ export const EditarViaje = () => {
           onChange={(e) => setHoraSeleccionada(e.target.value)}
           required
         />
-        <label htmlFor="date-input">Fecha:</label>
+        <label htmlFor="date-input" className="input-text">
+          Fecha:
+        </label>
         <input
           type="date"
           name="date-input"
@@ -141,8 +148,15 @@ export const EditarViaje = () => {
           onChange={(e) => setEtiquetasArea(e.target.value)}
           placeholder="Ingresa etiquetas separadas por comas, ej: valle, cumbaya, puce"
         />
-        <button type="submit">Guardar Cambios</button>
+        <button type="submit" className="boton-guardar-cambios">
+          <FaSave />
+          Guardar Cambios
+        </button>
       </form>
+      <Link to="/dashboard" className="boton-regreso">
+        <MdArrowBack />
+        Regresar al dashboard
+      </Link>
     </div>
   );
 };
