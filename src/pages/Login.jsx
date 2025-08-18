@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { MdLogin } from "react-icons/md";
 
@@ -46,6 +46,9 @@ export const Login = () => {
           <MdLogin />
           Iniciar Sesión
         </button>
+        <Link to={"/registro"} className="signup-link">
+          Crear cuenta
+        </Link>
       </form>
     </div>
   );
