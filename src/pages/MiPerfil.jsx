@@ -14,7 +14,7 @@ export const MiPerfil = () => {
       if (user) {
         try {
           const token = await user.firebaseUser.getIdToken();
-          const response = await fetch("http://localhost:3000/api/viajes/me", {
+          const response = await fetch("https://pi-tercero-backend.onrender.com/api/viajes/me", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -35,7 +35,7 @@ export const MiPerfil = () => {
         try {
           const token = await user.firebaseUser.getIdToken();
           const response = await fetch(
-            "http://localhost:3000/api/incidentes/me",
+            "https://pi-tercero-backend.onrender.com/api/incidentes/me",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
