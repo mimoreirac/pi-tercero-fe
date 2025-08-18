@@ -1,21 +1,4 @@
-.navbar {
-  margin: auto 0;
-  height: 95%;
-  background-color: oklch(95.57% 0.003 286.35);
-  padding: 1rem;
-  min-width: 230px;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: "Bricolage Grotesque", sans-serif;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-.navbar-link {
+.boton-cancelar-reserva {
   border-radius: 20px;
   padding: 0.5rem 4rem 0.5rem 1rem;
   text-align: left;
@@ -29,25 +12,32 @@
   box-sizing: 0;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: none;
+  max-width: 25%;
+  margin-top: 0.5rem;
 }
 
-.navbar-link:hover {
+.boton-cancelar-reserva:hover {
   background-color: oklch(25.11% 0.006 258.36);
   color: oklch(91.87% 0.003 264.54);
   cursor: pointer;
 }
 
-.navbar-menu {
+.contenedor-mi-reserva {
+  margin: 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   flex-grow: 1;
-  font-family: "Bricolage Grotesque", sans-serif;
-  box-sizing: 0;
+  width: 80%;
+  text-align: left;
+  gap: 0.35rem;
 }
 
-.navbar-submenu {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.mi-reserva-header {
+  font-family: "Bricolage Grotesque", sans-serif;
+}
+
+.estado-text {
+  font-family: "Quicksand", sans-serif;
+  font-size: 1.25em;
 }

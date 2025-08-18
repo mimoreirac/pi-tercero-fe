@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { ViajeInfo } from "../components/detalleViaje/ViajeInfo";
+import { AccionesCreador } from "../components/detalleViaje/AccionesCreador";
+import { AccionesPasajero } from "../components/detalleViaje/AccionesPasajero";
+import "./DetalleViaje.css";
+import { MdArrowBack } from "react-icons/md";
+import { FaCarCrash } from "react-icons/fa";
 
 export const DetalleViaje = () => {
   const [viaje, setViaje] = useState(null);
@@ -291,127 +297,48 @@ export const DetalleViaje = () => {
   };
 
   if (!viaje) {
-    return <p>Cargando...</p>;
+    return <div className="detalles-viaje-container"></div>;
   }
 
   const esCreador =
     user && viaje && user.dbUser.id_usuario === viaje.id_conductor;
 
   return (
-    <div>
-      <h2>Detalles del Viaje</h2>
-      <p>
-        <strong>Origen:</strong> {viaje.origen}
-      </p>
-      <p>
-        <strong>Destino:</strong> {viaje.destino}
-      </p>
-      <p>
-        <strong>Hora de Salida:</strong>{" "}
-        {new Date(viaje.hora_salida).toLocaleString("es-EC", {
-          dateStyle: "medium",
-          timeStyle: "short",
-        })}
-      </p>
-      <p>
-        <strong>Asientos Disponibles:</strong> {viaje.asientos_disponibles}
-      </p>
-      <p>
-        <strong>Descripción:</strong> {viaje.descripcion}
-      </p>
-      <p>
-        <strong>Etiquetas:</strong> {viaje.etiquetas_area.join(", ")}
-      </p>
-      <p>
-        <strong>Estado:</strong> {viaje.estado}
-      </p>
+    <div className="detalles-viaje-container">
+      <div className="acciones">
+        <ViajeInfo viaje={viaje} />
 
-      {esCreador ? (
-        <div>
-          {viaje.estado === "activo" && (
-            <>
-              <button onClick={handleIniciarViaje}>Iniciar Viaje</button>
-              <Link to={`/viaje/${id}/editar`}>
-                <button>Editar Viaje</button>
-              </Link>
-            </>
-          )}
-          {viaje.estado === "iniciado" && (
-            <button onClick={handleCompletarViaje}>Completar Viaje</button>
-          )}
-          {(viaje.estado === "activo" || viaje.estado === "iniciado") && (
-            <button onClick={handleCancelarViaje}>Cancelar Viaje</button>
-          )}
-          <h3>Reservas:</h3>
-          {reservas.length > 0 ? (
-            <ul>
-              {reservas.map((reserva) => (
-                <li key={reserva.id_reserva}>
-                  {reserva.pasajero.nombre} - Estado: {reserva.estado}
-                  {viaje.estado === "activo" &&
-                    reserva.estado === "pendiente" && (
-                      <>
-                        <button
-                          onClick={() =>
-                            handleUpdateReservaStatus(
-                              reserva.id_reserva,
-                              "confirmada"
-                            )
-                          }
-                        >
-                          Confirmar
-                        </button>
-                        <button
-                          onClick={() =>
-                            handleUpdateReservaStatus(
-                              reserva.id_reserva,
-                              "rechazada"
-                            )
-                          }
-                        >
-                          Rechazar
-                        </button>
-                      </>
-                    )}
-                </li>
-              ))}
-            </ul>
-          ) : reservasLoading ? (
-            <p>Cargando...</p>
-          ) : (
-            <p>No hay reservas aún.</p>
-          )}
-        </div>
-      ) : currentUserReservation ? (
-        <div>
-          <h3>Tu Reserva</h3>
-          <p>Estado: {currentUserReservation.estado}</p>
-          {(currentUserReservation.estado === "pendiente" ||
-            currentUserReservation.estado === "confirmada") && (
-            <button
-              onClick={() =>
-                handleCancelarReserva(currentUserReservation.id_reserva)
-              }
-            >
-              Cancelar Reserva
-            </button>
-          )}
-        </div>
-      ) : (
-        <button onClick={handleAplicar}>Aplicar a Viaje</button>
-      )}
+        {esCreador ? (
+          <AccionesCreador
+            viaje={viaje}
+            onIniciar={handleIniciarViaje}
+            onCompletar={handleCompletarViaje}
+            onCancelar={handleCancelarViaje}
+            reservas={reservas}
+            reservasLoading={reservasLoading}
+            onUpdateReservaStatus={handleUpdateReservaStatus}
+          />
+        ) : (
+          <AccionesPasajero
+            currentUserReservation={currentUserReservation}
+            onAplicar={handleAplicar}
+            onCancelarReserva={handleCancelarReserva}
+          />
+        )}
 
-      <Link to="/">
-        <button>Regresar al dashboard</button>
+        {(viaje.estado === "iniciado" ||
+          viaje.estado === "cancelado" ||
+          viaje.estado === "completado") && (
+          <Link to={`/viaje/${id}/reportar`} className="boton">
+            <FaCarCrash />
+            Reportar Incidente
+          </Link>
+        )}
+      </div>
+      <Link to="/" className="boton-regreso">
+        <MdArrowBack />
+        Regresar al dashboard
       </Link>
-
-      {(viaje.estado === "iniciado" ||
-        viaje.estado === "cancelado" ||
-        viaje.estado === "completado") && (
-        <Link to={`/viaje/${id}/reportar`}>
-          <button>Reportar Incidente</button>
-        </Link>
-      )}
     </div>
   );
 };
