@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -8,14 +8,19 @@ export const Signup = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [numeroTelefono, setNumeroTelefono] = useState("");
-  const { signup } = useAuth();
+  const { signup, user } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [user, navigate]);
 
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
       await signup(email, password, username, numeroTelefono);
-      navigate("/");
     } catch (error) {
       console.error(error);
     }

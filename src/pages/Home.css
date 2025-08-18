@@ -1,15 +1,48 @@
-.main-container {
-
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  font-family: "Bricolage Grotesque", sans-serif;
 }
 
-.viajes-container{
-
+.welcome-container h1 {
+  font-size: 5rem;
+  margin-bottom: 1rem;
 }
 
-.viajes-card-container {
-
+.welcome-container p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-.viajes-card {
+.welcome-links {
+  display: flex;
+  gap: 1rem;
+}
 
+.welcome-link {
+  padding: 1rem 2rem;
+  background-color: oklch(95.57% 0.003 286.35);
+  color: oklch(52.79% 0.005 271.32);
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.welcome-link:hover {
+  background-color: oklch(25.11% 0.006 258.36);
+  color: oklch(91.87% 0.003 264.54);
+}
+
+.puce-logo {
+  height: 250px;
+  margin-bottom: 5rem;
 }

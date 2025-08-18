@@ -335,7 +335,7 @@ export const DetalleViaje = () => {
           </Link>
         )}
       </div>
-      <Link to="/" className="boton-regreso">
+      <Link to="/dashboard" className="boton-regreso">
         <MdArrowBack />
         Regresar al dashboard
       </Link>
