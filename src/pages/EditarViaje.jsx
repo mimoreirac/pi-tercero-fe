@@ -86,7 +86,7 @@ export const EditarViaje = () => {
   };
 
   return (
-    <div>
+    <div className="editar-viaje-container">
       <h2>Editar Viaje</h2>
       <form onSubmit={handleSubmit}>
         <input
