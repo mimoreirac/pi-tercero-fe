@@ -1,0 +1,68 @@
+.perfil-container {
+  background-color: oklch(95.57% 0.003 286.35);
+  margin: auto 2rem;
+  flex-grow: 1;
+  border-radius: 20px;
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.datos-usuario {
+  height: 25%;
+}
+
+.panel-viajes-incidentes {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 1rem;
+}
+
+.datos-usuario h2,
+.viajes-usuario h3,
+.incidentes-usuario h3 {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 3em;
+}
+
+.viajes-usuario h3,
+.incidentes-usuario h3 {
+  font-size: 2em;
+}
+
+.datos-usuario,
+.viajes-usuario,
+.incidentes-usuario {
+  margin: 1rem;
+  text-align: left;
+}
+
+.viajes-usuario ul,
+.incidentes-usuario ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.viajes-usuario li,
+.incidentes-usuario li,
+.viajes-usuario p,
+.incidentes-usuario p {
+  font-family: "Quicksand", sans-serif;
+  font-size: 1.25em;
+}
+
+.texto-datos-usuario {
+  font-family: "Quicksand", sans-serif;
+  font-size: 1.25em;
+}
+.header-datos-usuario {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 1.25em;
+}
