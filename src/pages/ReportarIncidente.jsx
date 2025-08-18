@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./ReportarIncidente.css";
+import { MdArrowBack, MdReport } from "react-icons/md";
 
 export const ReportarIncidente = () => {
   const [tipoIncidente, setTipoIncidente] = useState("accidente");
@@ -41,10 +42,12 @@ export const ReportarIncidente = () => {
   };
 
   return (
-    <div>
-      <h2>Reportar Incidente</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="tipo_incidente">Tipo de Incidente:</label>
+    <div className="incidente-container">
+      <h2 className="incidente-header">Reportar Incidente</h2>
+      <form onSubmit={handleSubmit} className="incidente-formulario">
+        <label htmlFor="tipo_incidente" className="incidente-label">
+          Tipo de Incidente:
+        </label>
         <select
           id="tipo_incidente"
           value={tipoIncidente}
@@ -56,17 +59,23 @@ export const ReportarIncidente = () => {
           <option value="comportamiento">Comportamiento</option>
           <option value="otro">Otro</option>
         </select>
-        <br />
-        <label htmlFor="descripcion">Descripción:</label>
         <textarea
+          placeholder="Descripción del incidente, trata de proporcionar toda la información pertinente al caso."
           id="descripcion"
           value={descripcion}
           onChange={(e) => setDescripcion(e.target.value)}
           required
+          className="texto-descripcion"
         />
-        <br />
-        <button type="submit">Reportar Incidente</button>
+        <button type="submit" className="boton-reportar">
+          <MdReport />
+          Reportar Incidente
+        </button>
       </form>
+      <Link to={`/viaje/${id}`} className="boton-regreso">
+        <MdArrowBack />
+        Regresar al viaje
+      </Link>
     </div>
   );
 };

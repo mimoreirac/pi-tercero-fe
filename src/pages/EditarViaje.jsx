@@ -153,9 +153,9 @@ export const EditarViaje = () => {
           Guardar Cambios
         </button>
       </form>
-      <Link to="/dashboard" className="boton-regreso">
+      <Link to={`/viaje/${id}`}>
         <MdArrowBack />
-        Regresar al dashboard
+        Cancelar y regresar
       </Link>
     </div>
   );
