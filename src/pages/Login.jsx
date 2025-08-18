@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import "./Login.css";
+import { MdLogin } from "react-icons/md";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -24,9 +26,10 @@ export const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Iniciar Sesión</h2>
-      <form onSubmit={handleLogin}>
+    <div className="login-container">
+      <h1>Carros Compartidos PUCE</h1>
+      <h2>Bienvenid@</h2>
+      <form onSubmit={handleLogin} className="login-form">
         <input
           type="email"
           placeholder="Email"
@@ -39,7 +42,10 @@ export const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Iniciar Sesión</button>
+        <button type="submit" className="login-button">
+          <MdLogin />
+          Iniciar Sesión
+        </button>
       </form>
     </div>
   );
