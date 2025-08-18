@@ -12,7 +12,7 @@ export const Dashboard = () => {
       if (user) {
         try {
           const token = await user.firebaseUser.getIdToken();
-          const response = await fetch("http://localhost:3000/api/viajes", {
+          const response = await fetch("https://pi-tercero-backend.onrender.com/api/viajes", {
             headers: {
               Authorization: `Bearer ${token}`,
             },

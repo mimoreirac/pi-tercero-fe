@@ -16,7 +16,7 @@ export const ReportarIncidente = () => {
     if (user) {
       try {
         const token = await user.firebaseUser.getIdToken();
-        const response = await fetch("http://localhost:3000/api/incidentes", {
+        const response = await fetch("https://pi-tercero-backend.onrender.com/api/incidentes", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

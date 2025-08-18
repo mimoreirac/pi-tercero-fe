@@ -24,7 +24,7 @@ export const EditarViaje = () => {
         try {
           const token = await user.firebaseUser.getIdToken();
           const response = await fetch(
-            `http://localhost:3000/api/viajes/${id}`,
+            `https://pi-tercero-backend.onrender.com/api/viajes/${id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -59,7 +59,7 @@ export const EditarViaje = () => {
 
     try {
       const token = await user.firebaseUser.getIdToken();
-      const response = await fetch(`http://localhost:3000/api/viajes/${id}`, {
+      const response = await fetch(`https://pi-tercero-backend.onrender.com/api/viajes/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
