@@ -38,32 +38,50 @@ export const Home = () => {
 
   return (
     <div>
-      <h2>Home</h2>
+      <h2 className="home-header">Home</h2>
       {user ? (
         <div className="main-container">
-          <p>
+          <div className="viajes-card bienvenida">
             Bienvenido,{" "}
             {user.firebaseUser.displayName || user.firebaseUser.email}
-          </p>
-          <div classsName="viajes-container">
-            <h3>Viajes Activos:</h3>
+          </div>
+          <div className="viajes-container">
+            <div className="viajes-card" style={{ marginBottom: "1.5rem" }}>
+              <h3 style={{ margin: 0 }}>Viajes Activos:</h3>
+            </div>
             {viajes.length > 0 ? (
               <div className="viajes-card-container">
                 {viajes.map((viaje) => (
-                  <div key={viaje.id_viaje} classsName="viajes-card">
+                  <div key={viaje.id_viaje} className="viajes-card">
                     <Link to={`/viaje/${viaje.id_viaje}`}>
-                      {viaje.origen} - {viaje.destino} - {viaje.hora_salida}
+                      <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
+                        <li>
+                          <strong>Origen:</strong> {viaje.origen}
+                        </li>
+                        <li>
+                          <strong>Destino:</strong> {viaje.destino}
+                        </li>
+                        <li>
+                          <strong>Hora salida:</strong> {viaje.hora_salida}
+                        </li>
+                      </ul>
                     </Link>
                   </div>
                 ))}
               </div>
             ) : (
-              <p>No hay viajes activos.</p>
+              <div className="viajes-card no-viajes">
+                No hay viajes activos.
+              </div>
             )}
           </div>
         </div>
       ) : (
-        <p>Por favor inicia sesión para ver el dashboard</p>
+        <div className="main-container">
+          <div className="viajes-card no-viajes">
+            Por favor inicia sesión para ver el dashboard
+          </div>
+        </div>
       )}
     </div>
   );
