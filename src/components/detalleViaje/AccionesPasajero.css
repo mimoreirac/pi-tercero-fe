@@ -41,3 +41,17 @@
   font-family: "Quicksand", sans-serif;
   font-size: 1.25em;
 }
+
+@media (max-width: 768px) {
+  .boton-cancelar-reserva {
+    width: 100%;
+    max-width: none;
+  }
+
+  .contenedor-mi-reserva {
+    width: 90%;
+    align-items: center;
+    text-align: center;
+  }
+}
+

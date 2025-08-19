@@ -53,3 +53,20 @@
   font-family: "Quicksand", sans-serif;
   font-size: 1.25rem;
 }
+
+@media (max-width: 768px) {
+  .contenedor-reservas {
+    width: 90%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .header-reservas {
+    font-size: 1.5em;
+  }
+
+  .usuario {
+    font-size: 1em;
+  }
+}
+

@@ -49,3 +49,14 @@
 .signup-button:hover {
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .login-container h1 {
+    font-size: 3rem;
+  }
+
+  .login-form {
+    width: 80%;
+  }
+}
+
