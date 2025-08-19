@@ -80,7 +80,7 @@ export const AddViaje = () => {
 
     try {
       const token = await user.firebaseUser.getIdToken();
-      const response = await fetch("http://localhost:3000/api/viajes", {
+      const response = await fetch("https://pi-tercero-backend.onrender.com/api/viajes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -174,8 +174,12 @@ export const AddViaje = () => {
             {error}
           </p>
         )}
+        <label htmlFor="asientos-input" className="input-text">
+          Número de Asientos:
+        </label>
         <input
           type="number"
+          name="asientos-input"
           placeholder="Asientos Disponibles"
           value={asientosDisponibles}
           onChange={(e) => setAsientosDisponibles(e.target.value)}
@@ -199,7 +203,7 @@ export const AddViaje = () => {
           Crear Viaje
         </button>
       </form>
-      <Link to="/" className="boton-regreso">
+      <Link to="/dashboard" className="boton-regreso">
         <MdArrowBack />
         Regresar al dashboard
       </Link>

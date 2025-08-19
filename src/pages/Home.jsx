@@ -1,88 +1,42 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./Home.css";
+import { MdLogin } from "react-icons/md";
+import { GiBearFace } from "react-icons/gi";
 
 export const Home = () => {
-  const { user, logout } = useAuth();
-  const [viajes, setViajes] = useState([]);
+  const { user, loading } = useAuth();
 
-  useEffect(() => {
-    const fetchViajes = async () => {
-      if (user) {
-        try {
-          const token = await user.firebaseUser.getIdToken();
-          const response = await fetch("http://localhost:3000/api/viajes", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          const data = await response.json();
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
 
-          const formattedData = data.map((viaje) => ({
-            ...viaje,
-            hora_salida: new Date(viaje.hora_salida).toLocaleString("es-EC", {
-              dateStyle: "medium",
-              timeStyle: "short",
-            }),
-          }));
-
-          setViajes(formattedData);
-        } catch (error) {
-          console.error("Error fetching trips:", error);
-        }
-      }
-    };
-    fetchViajes();
-  }, [user]);
+  if (user) {
+    return <Navigate to="/dashboard" />;
+  }
 
   return (
-    <div>
-      <h2 className="home-header">Home</h2>
-      {user ? (
-        <div className="main-container">
-          <div className="viajes-card bienvenida">
-            Bienvenido,{" "}
-            {user.firebaseUser.displayName || user.firebaseUser.email}
-          </div>
-          <div className="viajes-container">
-            <div className="viajes-card" style={{ marginBottom: "1.5rem" }}>
-              <h3 style={{ margin: 0 }}>Viajes Activos:</h3>
-            </div>
-            {viajes.length > 0 ? (
-              <div className="viajes-card-container">
-                {viajes.map((viaje) => (
-                  <div key={viaje.id_viaje} className="viajes-card">
-                    <Link to={`/viaje/${viaje.id_viaje}`}>
-                      <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
-                        <li>
-                          <strong>Origen:</strong> {viaje.origen}
-                        </li>
-                        <li>
-                          <strong>Destino:</strong> {viaje.destino}
-                        </li>
-                        <li>
-                          <strong>Hora salida:</strong> {viaje.hora_salida}
-                        </li>
-                      </ul>
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="viajes-card no-viajes">
-                No hay viajes activos.
-              </div>
-            )}
-          </div>
-        </div>
-      ) : (
-        <div className="main-container">
-          <div className="viajes-card no-viajes">
-            Por favor inicia sesión para ver el dashboard
-          </div>
-        </div>
-      )}
+    <div className="welcome-container">
+      <img
+        src="/puce-logo.png"
+        className="puce-logo"
+        alt="Logo PUCE"
+      ></img>
+      <h1>Carros Compartidos PUCE</h1>
+      <p>
+        Tu solución #1 para compartir viajes de manera fácil y segura entre
+        nuestra comunidad.
+      </p>
+      <div className="welcome-links">
+        <Link to="/login" className="welcome-link">
+          <MdLogin />
+          Iniciar Sesión
+        </Link>
+        <Link to="/registro" className="welcome-link">
+          <GiBearFace />
+          Crear Cuenta
+        </Link>
+      </div>
     </div>
   );
 };

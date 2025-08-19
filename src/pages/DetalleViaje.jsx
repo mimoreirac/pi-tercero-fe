@@ -23,7 +23,7 @@ export const DetalleViaje = () => {
         try {
           const token = await user.firebaseUser.getIdToken();
           const response = await fetch(
-            `http://localhost:3000/api/viajes/${id}`,
+            `https://pi-tercero-backend.onrender.com/api/viajes/${id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -50,7 +50,7 @@ export const DetalleViaje = () => {
         try {
           const token = await user.firebaseUser.getIdToken();
           const response = await fetch(
-            `http://localhost:3000/api/reservas/viaje/${id}`,
+            `https://pi-tercero-backend.onrender.com/api/reservas/viaje/${id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -71,7 +71,7 @@ export const DetalleViaje = () => {
                   .filter((reserva) => reserva.id_pasajero)
                   .map(async (reserva) => {
                     const userResponse = await fetch(
-                      `http://localhost:3000/api/usuarios/${reserva.id_pasajero}`,
+                      `https://pi-tercero-backend.onrender.com/api/usuarios/${reserva.id_pasajero}`,
                       {
                         headers: {
                           Authorization: `Bearer ${token}`,
@@ -108,7 +108,7 @@ export const DetalleViaje = () => {
     if (user) {
       try {
         const token = await user.firebaseUser.getIdToken();
-        const response = await fetch("http://localhost:3000/api/reservas", {
+        const response = await fetch("https://pi-tercero-backend.onrender.com/api/reservas", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -134,7 +134,7 @@ export const DetalleViaje = () => {
     if (user) {
       try {
         const token = await user.firebaseUser.getIdToken();
-        const response = await fetch(`http://localhost:3000/api/viajes/${id}`, {
+        const response = await fetch(`https://pi-tercero-backend.onrender.com/api/viajes/${id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -160,7 +160,7 @@ export const DetalleViaje = () => {
     if (user) {
       try {
         const token = await user.firebaseUser.getIdToken();
-        const response = await fetch(`http://localhost:3000/api/viajes/${id}`, {
+        const response = await fetch(`https://pi-tercero-backend.onrender.com/api/viajes/${id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -188,7 +188,7 @@ export const DetalleViaje = () => {
         try {
           const token = await user.firebaseUser.getIdToken();
           const response = await fetch(
-            `http://localhost:3000/api/viajes/${id}`,
+            `https://pi-tercero-backend.onrender.com/api/viajes/${id}`,
             {
               method: "PUT",
               headers: {
@@ -218,7 +218,7 @@ export const DetalleViaje = () => {
         try {
           const token = await user.firebaseUser.getIdToken();
           const response = await fetch(
-            `http://localhost:3000/api/reservas/${id_reserva}/cancelar`,
+            `https://pi-tercero-backend.onrender.com/api/reservas/${id_reserva}/cancelar`,
             {
               method: "PUT",
               headers: {
@@ -245,7 +245,7 @@ export const DetalleViaje = () => {
       try {
         const token = await user.firebaseUser.getIdToken();
         const response = await fetch(
-          `http://localhost:3000/api/reservas/${id_reserva}/estado`,
+          `https://pi-tercero-backend.onrender.com/api/reservas/${id_reserva}/estado`,
           {
             method: "PUT",
             headers: {
@@ -258,7 +258,7 @@ export const DetalleViaje = () => {
         if (response.ok) {
           // Recarga las reservas
           const fetchReservasResponse = await fetch(
-            `http://localhost:3000/api/reservas/viaje/${id}`,
+            `https://pi-tercero-backend.onrender.com/api/reservas/viaje/${id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -274,7 +274,7 @@ export const DetalleViaje = () => {
               .filter((reserva) => reserva.id_pasajero)
               .map(async (reserva) => {
                 const userResponse = await fetch(
-                  `http://localhost:3000/api/usuarios/${reserva.id_pasajero}`,
+                  `https://pi-tercero-backend.onrender.com/api/usuarios/${reserva.id_pasajero}`,
                   {
                     headers: {
                       Authorization: `Bearer ${token}`,
@@ -335,7 +335,7 @@ export const DetalleViaje = () => {
           </Link>
         )}
       </div>
-      <Link to="/" className="boton-regreso">
+      <Link to="/dashboard" className="boton-regreso">
         <MdArrowBack />
         Regresar al dashboard
       </Link>

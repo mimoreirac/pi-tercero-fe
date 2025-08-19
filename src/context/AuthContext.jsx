@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
     // Sincroniza al usuario con la base de datos
     try {
       const token = await res.user.getIdToken();
-      await fetch("http://localhost:3000/api/usuarios/sync", {
+      await fetch("https://pi-tercero-backend.onrender.com/api/usuarios/sync", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
           nombre: displayName,
         }),
       });
-      const response = await fetch("http://localhost:3000/api/usuarios/me", {
+      const response = await fetch("https://pi-tercero-backend.onrender.com/api/usuarios/me", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }) => {
       if (isSigningUp) return;
       if (currentUser) {
         const token = await currentUser.getIdToken();
-        const response = await fetch("http://localhost:3000/api/usuarios/me", {
+        const response = await fetch("https://pi-tercero-backend.onrender.com/api/usuarios/me", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
