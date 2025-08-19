@@ -50,3 +50,10 @@
 .login-button:hover {
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .signup-form {
+    width: 80%;
+  }
+}
+

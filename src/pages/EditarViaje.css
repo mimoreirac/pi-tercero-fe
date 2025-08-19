@@ -108,3 +108,21 @@ textarea:focus {
   color: oklch(91.87% 0.003 264.54);
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .editar-viaje-container {
+    margin: 0;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .formulario-editar {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .editar-viaje-header {
+    font-size: 2.5em;
+  }
+}
+

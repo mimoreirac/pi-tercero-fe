@@ -79,3 +79,15 @@ textarea:focus {
   text-align: left;
   width: 85%;
 }
+
+@media (max-width: 768px) {
+  .formulario-viaje {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .add-viaje-header {
+    font-size: 2.5em;
+  }
+}
+

@@ -66,3 +66,25 @@
   color: oklch(91.87% 0.003 264.54);
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .detalles-viaje-container {
+    margin: 0;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .acciones {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .boton-regreso,
+  .boton {
+    width: 80%;
+    max-width: none;
+  }
+}
+

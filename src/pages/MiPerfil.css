@@ -66,3 +66,29 @@
   font-family: "Bricolage Grotesque", sans-serif;
   font-size: 1.25em;
 }
+
+@media (max-width: 768px) {
+  .perfil-container {
+    margin: 0;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .datos-usuario h2,
+  .viajes-usuario h3,
+  .incidentes-usuario h3 {
+    font-size: 2em;
+  }
+
+  .viajes-usuario h3,
+  .incidentes-usuario h3 {
+    font-size: 1.5em;
+  }
+
+  .datos-usuario,
+  .viajes-usuario,
+  .incidentes-usuario {
+    margin: 0.5rem;
+  }
+}
+

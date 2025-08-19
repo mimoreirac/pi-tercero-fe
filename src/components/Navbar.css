@@ -13,6 +13,7 @@
   font-family: "Bricolage Grotesque", sans-serif;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease-in-out;
 }
 
 .navbar-link {
@@ -51,3 +52,34 @@
   flex-direction: column;
   gap: 0.5rem;
 }
+
+.hamburger-icon {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1001;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    transform: translateX(-100%);
+    z-index: 1000;
+  }
+
+  .navbar.active {
+    transform: translateX(0);
+  }
+
+  .hamburger-icon {
+    display: block;
+  }
+}
+

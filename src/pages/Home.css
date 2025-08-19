@@ -46,3 +46,23 @@
   height: 250px;
   margin-bottom: 5rem;
 }
+
+@media (max-width: 768px) {
+  .welcome-container h1 {
+    font-size: 3rem;
+  }
+
+  .welcome-container p {
+    font-size: 1.2rem;
+  }
+
+  .welcome-links {
+    flex-direction: column;
+  }
+
+  .puce-logo {
+    height: 150px;
+    margin-bottom: 2rem;
+  }
+}
+
