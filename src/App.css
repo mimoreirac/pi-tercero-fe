@@ -8,3 +8,10 @@
   box-sizing: border-box;
   height: 100%;
 }
+
+@media (max-width: 768px) {
+  #root {
+    padding: 0.5rem;
+  }
+}
+

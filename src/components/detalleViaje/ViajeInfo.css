@@ -18,3 +18,19 @@
 .detalles-header {
   font-family: "Bricolage Grotesque", sans-serif;
 }
+
+@media (max-width: 768px) {
+  .viaje-info {
+    min-width: 90%;
+    text-align: center;
+  }
+
+  .viaje-info h2 {
+    font-size: 2em;
+  }
+
+  .viaje-info p {
+    font-size: 1em;
+  }
+}
+
