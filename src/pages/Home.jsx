@@ -18,7 +18,7 @@ export const Home = () => {
   return (
     <div className="welcome-container">
       <img
-        src="./src/assets/puce-logo.png"
+        src="/puce-logo.png"
         className="puce-logo"
         alt="Logo PUCE"
       ></img>
